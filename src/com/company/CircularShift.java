@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CircularShift {
+public class CircularShift implements Comparable<CircularShift> {
     private Line line;
     private Integer offset;
 
@@ -23,5 +23,20 @@ public class CircularShift {
             i++;
         }
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(CircularShift other) {
+        // If this offset is the last word
+        if (this.offset == this.line.getNumberOfWords - 1) {
+            return -1;
+        }
+
+        // If other offset is the last word
+        if (other.offset == other.line.getNumberOfWords - 1) {
+            return 1;
+        }
+
+        return this.line.getWord(this.offset).compareTo(other.line.getWord(other.offset));
     }
 }
