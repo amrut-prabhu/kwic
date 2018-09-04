@@ -28,12 +28,12 @@ public class CircularShift implements Comparable<CircularShift> {
     @Override
     public int compareTo(CircularShift other) {
         // If this offset is the last word
-        if (this.offset == this.line.getNumberOfWords - 1) {
+        if (this.offset == this.line.getNumberOfWords() - 1) {
             return -1;
         }
 
         // If other offset is the last word
-        if (other.offset == other.line.getNumberOfWords - 1) {
+        if (other.offset == other.line.getNumberOfWords() - 1) {
             return 1;
         }
 
