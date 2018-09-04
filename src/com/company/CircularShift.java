@@ -27,16 +27,33 @@ public class CircularShift implements Comparable<CircularShift> {
 
     @Override
     public int compareTo(CircularShift other) {
-        // If this offset is the last word
-        if (this.offset == this.line.getNumberOfWords() - 1) {
+        int thisCount = 0;
+        int otherCount = 0;
+        int thisIndex = this.offset;
+        int otherIndex = other.offset;
+
+        while (thisCount < this.line.getNumberOfWords() && otherCount < other.line.getNumberOfWords()) {
+
+            int compareVal = this.line.getWord(thisIndex).compareToIgnoreCase(other.line.getWord(otherIndex));
+            
+            if (compareVal > 0) {
+                return 1;
+            } else if (compareVal < 0) {
+                return -1;
+            }
+            
+            thisCount++;
+            otherCount++;
+            thisIndex = (thisIndex + 1) % this.line.getNumberOfWords();
+            otherIndex = (otherIndex + 1) % other.line.getNumberOfWords();
+        }
+
+        if (thisCount >= this.line.getNumberOfWords()) {
             return -1;
-        }
-
-        // If other offset is the last word
-        if (other.offset == other.line.getNumberOfWords() - 1) {
+        } else if (otherCount >= other.line.getNumberOfWords()) {
             return 1;
+        } else {
+            return 0;
         }
-
-        return this.line.getWord(this.offset).compareTo(other.line.getWord(other.offset));
     }
 }
