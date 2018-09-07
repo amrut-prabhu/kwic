@@ -1,10 +1,7 @@
-package com.company;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.company.shared;
 
 /**
- * Represents a circular shift by {@code offset} of a {@code line}.
+ * Represents a circular shifter by {@code offset} of a {@code line}.
  */
 public class CircularShift implements Comparable<CircularShift> {
 
@@ -18,7 +15,7 @@ public class CircularShift implements Comparable<CircularShift> {
 
     /**
      * Builds and returns the output string for this line after circular shifting {@code offset} number of times.
-     * @return String containing the circualr shift of the line.
+     * @return String containing the circualr shifter of the line.
      */
     @Override
     public String toString() {
@@ -34,7 +31,7 @@ public class CircularShift implements Comparable<CircularShift> {
 
     /**
      * Overriden compareTo() method
-     * @param other Circular shift to compare {@code this} to.
+     * @param other Circular shifter to compare {@code this} to.
      * @return -1 if {@code this} is lexicographically smaller than {@code other}, 0 if both are lexicographically
      *      equal, and 1 if {@code this} is lexicographically larger.
      */
