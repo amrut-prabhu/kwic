@@ -3,38 +3,53 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a circular shift by {@code offset} of a {@code line}.
+ */
 public class CircularShift implements Comparable<CircularShift> {
+
     private Line line;
-    private Integer offset;
+    private int offset;
 
     public CircularShift(Line line, int offset) {
         this.line = line;
         this.offset = offset;
     }
 
+    /**
+     * Builds and returns the output string for this line after circular shifting {@code offset} number of times.
+     * @return String containing the circualr shift of the line.
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
         int numberOfWords = line.getNumberOfWords();
-        int i = 0;
-        while (i < numberOfWords) {
+        for(int i = 0; i < numberOfWords; i++) {
             builder.append(line.getWord((offset + i) % numberOfWords)).append(" ");
-            i++;
         }
+
         return builder.toString();
     }
 
+    /**
+     * Overriden compareTo() method
+     * @param other Circular shift to compare {@code this} to.
+     * @return -1 if {@code this} is lexicographically smaller than {@code other}, 0 if both are lexicographically
+     *      equal, and 1 if {@code this} is lexicographically larger.
+     */
     @Override
     public int compareTo(CircularShift other) {
-        int thisCount = 0;
-        int otherCount = 0;
-        int thisIndex = this.offset;
-        int otherIndex = other.offset;
+        int wordsCount = 0;
+        int thisWordIndex = this.offset;
+        int otherWordIndex = other.offset;
 
-        while (thisCount < this.line.getNumberOfWords() && otherCount < other.line.getNumberOfWords()) {
+        int thisLineTotalWords = this.line.getNumberOfWords();
+        int otherLineTotalWords = other.line.getNumberOfWords();
 
-            int compareVal = this.line.getWord(thisIndex).compareToIgnoreCase(other.line.getWord(otherIndex));
+        while (wordsCount < thisLineTotalWords && wordsCount < otherLineTotalWords) {
+
+            int compareVal = this.line.getWord(thisWordIndex).compareToIgnoreCase(other.line.getWord(otherWordIndex));
             
             if (compareVal > 0) {
                 return 1;
@@ -42,15 +57,14 @@ public class CircularShift implements Comparable<CircularShift> {
                 return -1;
             }
             
-            thisCount++;
-            otherCount++;
-            thisIndex = (thisIndex + 1) % this.line.getNumberOfWords();
-            otherIndex = (otherIndex + 1) % other.line.getNumberOfWords();
+            wordsCount++;
+            thisWordIndex = (thisWordIndex + 1) % thisLineTotalWords;
+            otherWordIndex = (otherWordIndex + 1) % otherLineTotalWords;
         }
 
-        if (thisCount >= this.line.getNumberOfWords()) {
+        if (wordsCount >= thisLineTotalWords) {
             return -1;
-        } else if (otherCount >= other.line.getNumberOfWords()) {
+        } else if (wordsCount >= otherLineTotalWords) {
             return 1;
         } else {
             return 0;
