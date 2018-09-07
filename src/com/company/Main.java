@@ -93,7 +93,7 @@ public class Main {
      * Sorter.
      */
     public void alphabetize() {
-
+        Collections.sort(circularShifts);
     }
 
     /**
